@@ -1,0 +1,13 @@
+{
+  "name": "capitol-compass-server",
+  "version": "1.0.0",
+  "description": "Backend server for the Capitol Compass project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
