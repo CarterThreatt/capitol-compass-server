@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitol Compass API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="top">
+        <p class="eyebrow">CAPITOL COMPASS</p>
+        <h1>Capitol Compass API</h1>
+        <p class="intro">The data behind the Capitol Compass guide to Washington, D.C. Every request below is a GET request that sends back JSON or a picture.</p>
+        <a class="site-link" href="https://carterthreatt.github.io/capitolconnect_frontend/">See it on the website</a>
+    </header>
+
+    <main>
+        <section id="requests">
+            <h2>Available requests</h2>
+
+            <article class="request">
+                <div class="request-top">
+                    <span class="method">GET</span>
+                    <code>/api/monuments</code>
+                </div>
+                <p>Every monument and memorial on the Mall as a list: name, photo, category, hours, how long to stay, and ticket links for the ones that need them.</p>
+                <a class="request-link" href="/api/monuments">All Monuments</a>
+            </article>
+
+            <article class="request">
+                <div class="request-top">
+                    <span class="method">GET</span>
+                    <code>/images/&lt;img_name&gt;</code>
+                </div>
+                <p>The photo for each monument. Use the <code>img_name</code> that comes back from the monuments request, like <code>lincoln-memorial.jpg</code>.</p>
+                <a class="request-link" href="/images/lincoln-memorial.jpg">Lincoln Memorial Photo</a>
+            </article>
+        </section>
+
+        <section id="example">
+            <h2>What one monument looks like</h2>
+            <pre>{
+  "_id": 2,
+  "name": "Washington Monument",
+  "img_name": "washington-monument.jpg",
+  "img_alt": "Washington Monument",
+  "section": "start-here",
+  "category": "PRESIDENTIAL",
+  "filters": ["presidential", "tickets"],
+  "badges": ["TICKETS REQUIRED"],
+  "description": "Free timed tickets drop at 10 a.m. daily...",
+  "hours": "9am - 5pm",
+  "metro": "Smithsonian",
+  "time_needed": "30-45 mins"
+}</pre>
+        </section>
+
+        <section id="photos">
+            <h2>The photos</h2>
+            <div class="photo-row">
+                <a href="/images/lincoln-memorial.jpg"><img src="/images/lincoln-memorial.jpg" alt="Lincoln Memorial at night"></a>
+                <a href="/images/washington-monument.jpg"><img src="/images/washington-monument.jpg" alt="Washington Monument"></a>
+                <a href="/images/jefferson-memorial.jpg"><img src="/images/jefferson-memorial.jpg" alt="Jefferson Memorial"></a>
+                <a href="/images/wwii-memorial.jpg"><img src="/images/wwii-memorial.jpg" alt="World War II Memorial"></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Capitol Compass &middot; CSCE 242 &middot; Carter Threatt</p>
+    </footer>
+</body>
+</html>
