@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const Joi = require("joi");
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
@@ -238,8 +239,52 @@ app.get("/api/monuments", (req, res) => {
     res.send(monuments);
 });
 
+app.post("/api/monuments", upload.single("image"), (req,res) => {
+    const reslut = validateMonument(req.body);
+    if (reslut.error) {
+        console.log("Error. Server side validation failed.");
+        res.status(400).send(reslut.error.details[0].message);
+        return;
+    }
+
+    if (!req.file) {
+        res.status(400).send("A photo of the stop is required");
+        return;
+    }
+
+    const monument = {
+        _id: monuments.length + 1,
+        name: req.body.name.trim(),
+        img_name: req.file.filename,
+        img_alt: req.body.name.trim(),
+        section: "district",
+        category: req.body.category,
+        filters: [],
+        description: req.body.description.trim(),
+        hours: req.body.hours.trim(),
+        tickets: req.body.tickets.trim(),
+        time_needed: req.body.time_needed.trim()
+    };
+
+    monuments.push(monument);
+    res.status(200).send(monument);
+});
+
+const validateMonument = (monument) => {
+    const schema = Joi.object({
+        _id: Joi.allow(""),
+        name: Joi.string().trim().min(3).max(60).required(),
+        category: Joi.string().valid("PRESIDENTIAL", "WAR MEMORIAL", "IMPORTANT FIGURES", "MILITARY").required(),
+        description: Joi.string().trim().min(10).max(200).required(),
+        hours: Joi.string().trim().min(3).max(40).required(),
+        tickets: Joi.string().trim().min(2).max(40).required(),
+        time_needed: Joi.string().trim().min(2).max(30).required()
+    });
+    return schema.validate(monument);
+};
+
 //listen for incoming request
-//Render picks the port for us, on your own computer it is 3001
+//Render picks the port for us, locally it is 3001
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log("Server is running on port " + port);
